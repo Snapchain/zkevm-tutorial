@@ -73,7 +73,7 @@ services:
       - SUPERNETS2_NODE_POOL_DB_HOST=supernets2-pool-db
       - SUPERNETS2_NODE_SEQUENCER_SENDER_ADDRESS=0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
     volumes:
-      - ./sequencer.keystore:/pk/sequencer.keystore
+      - ./config/sequencer.keystore:/pk/sequencer.keystore
       - ./config/test.node.config.toml:/app/config.toml
       - ./config/test.genesis.config.json:/app/genesis.json
     command:
@@ -141,8 +141,8 @@ services:
     environment:
       - SUPERNETS2_NODE_STATEDB_HOST=supernets2-state-db
     volumes:
-      - ./sequencer.keystore:/pk/sequencer.keystore
-      - ./aggregator.keystore:/pk/aggregator.keystore
+      - ./config/sequencer.keystore:/pk/sequencer.keystore
+      - ./config/aggregator.keystore:/pk/aggregator.keystore
       - ./config/test.node.config.toml:/app/config.toml
       - ./config/test.genesis.config.json:/app/genesis.json
     command:
@@ -177,7 +177,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ../db/scripts/init_prover_db.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/db_scripts/init_prover_db.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_USER=state_user
       - POSTGRES_PASSWORD=state_password
@@ -219,7 +219,7 @@ services:
     ports:
       - 5435:5432
     volumes:
-      - ../db/scripts/init_event_db.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/db_scripts/init_event_db.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_USER=event_user
       - POSTGRES_PASSWORD=event_password
@@ -364,7 +364,7 @@ services:
     environment:
       - SUPERNETS2_NODE_STATEDB_HOST=supernets2-state-db
     volumes:
-      - ./sequencer.keystore:/pk/keystore
+      - ./config/sequencer.keystore:/pk/keystore
       - ./config/test.node.config.toml:/app/config.toml
       - ./config/test.genesis.config.json:/app/genesis.json
     command:
@@ -384,7 +384,7 @@ services:
     ports:
       - 5434:5432
     volumes:
-      - ../db/scripts/single_db_server.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/db_scripts/single_db_server.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_USER=test_user
       - POSTGRES_PASSWORD=test_password
@@ -489,4 +489,4 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
       - --web.enable-lifecycle
     volumes:
-      - ../config/metrics/prometheus:/etc/prometheus
+      - ./config/metrics/prometheus:/etc/prometheus
